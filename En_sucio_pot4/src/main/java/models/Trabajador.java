@@ -102,7 +102,7 @@ public class Trabajador {
 
     // Método para verificar si el trabajador tiene menos pedidos que otro trabajador
     public boolean tieneMenosPedidosQue(Trabajador otroTrabajador) {
-        return this.contador < otroTrabajador.getContador();
+        return contador < otroTrabajador.getContador();
     }
 
     // Metodo para contar los pedidos asignados al trabajador
@@ -139,13 +139,13 @@ public class Trabajador {
 
     public void modificarDatos(String nuevoNombre, String nuevaClave, int nuevoTelefono) {
         if (nuevoNombre != null && !nuevoNombre.isEmpty()) {
-            this.nombre = nuevoNombre;
+            nombre = nuevoNombre;
         }
         if (nuevaClave != null && !nuevaClave.isEmpty()) {
-            this.clave = nuevaClave;
+            clave = nuevaClave;
         }
         if (nuevoTelefono != 0) {
-            this.telefono = nuevoTelefono;
+            telefono = nuevoTelefono;
         }
     }
 
@@ -158,7 +158,7 @@ public class Trabajador {
                 Email: %s
                 Teléfono: %s
                 ==========================
-                """, this.nombre, this.email, this.telefono);
+                """, nombre, email, telefono);
     }
 
     // Metodo toString para representar el trabajador como una cadena de texto

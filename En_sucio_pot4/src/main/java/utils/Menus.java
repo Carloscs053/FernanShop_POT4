@@ -46,17 +46,17 @@ public class Menus {
 
         // Mostrar el menú del trabajador
         System.out.printf("""
-                    FERNANSHOP
-                    Bienvenido %s. Tienes %d pedidos asignados.
-                    1.- Consultar los pedidos que tengo asignados
-                    2.- Modificar el estado de un pedido
-                    3.- Consultar el catálogo de productos
-                    4.- Modificar un producto del catálogo
-                    5.- Ver mi perfil
-                    6.- Modificar mis datos personales
-                    7.- Cerrar sesión
-                    
-                    Seleccione una opción:\s""", trabajador.getNombre(), trabajador.contarPedidos());
+                FERNANSHOP
+                Bienvenido %s. Tienes %d pedidos asignados.
+                1.- Consultar los pedidos que tengo asignados
+                2.- Modificar el estado de un pedido
+                3.- Consultar el catálogo de productos
+                4.- Modificar un producto del catálogo
+                5.- Ver mi perfil
+                6.- Modificar mis datos personales
+                7.- Cerrar sesión
+                                    
+                Seleccione una opción:\s""", trabajador.getNombre(), trabajador.contarPedidos());
 
     }
 
@@ -137,7 +137,8 @@ public class Menus {
                         // Puedes acceder al contador de trabajadores desde la tienda si es necesario
                         // e.g., tienda.decrementarContadorTrabajadores();
                     } else {
-                        System.out.println("Debe seleccionar 'En Preparación' antes de seleccionar esta opción y no puede estar 'Cancelado'.");
+                        System.out.println("Debe seleccionar 'En Preparación' antes de seleccionar esta opción " +
+                                "y no puede estar 'Cancelado'.");
                     }
                     break;
                 default:
@@ -153,17 +154,18 @@ public class Menus {
     public static void cambiarFechaEntrega(Pedido pedido) {
         Scanner s = new Scanner(System.in);
         System.out.print("¿Desea cambiar la fecha de entrega del pedido? (S/N):");
-        String respuesta = s.nextLine().trim().toUpperCase();
+        String respuesta = s.nextLine().toUpperCase();
 
         if (respuesta.equals("S")) {
             System.out.print("Ingrese la cantidad de días de retraso:");
             String diaRetraso = s.nextLine();
 
             // Validar que el valor introducido sea un dígito
-            if (esDigito(diaRetraso)) {
+            if (Utils.esDigito(diaRetraso)) {
                 int diasRetraso = Integer.parseInt(diaRetraso);
                 pedido.setDiasRetraso(diasRetraso);
-                System.out.print("La fecha de entrega del pedido ha sido actualizada con " + diasRetraso + " días de retraso.");
+                System.out.print("La fecha de entrega del pedido ha sido actualizada con " + diasRetraso
+                        + " días de retraso.");
             } else {
                 System.out.print("Valor no válido. Debe ingresar un número.");
             }
@@ -172,16 +174,6 @@ public class Menus {
         }
     }
 
-    // Método auxiliar para verificar si una cadena contiene solo dígitos
-    public static boolean esDigito(String diaRetraso) {
-        for (int i = 0; i < diaRetraso.length(); i++) {
-            char c = diaRetraso.charAt(i);
-            if (!Character.isDigit(c)) {
-                return false;
-            }
-        }
-        return true;
-    }
 
     public static void aniadirComentario(Pedido pedido) {
         Scanner s = new Scanner(System.in);
@@ -234,7 +226,7 @@ public class Menus {
     }
 
     // Obtener un producto por su código
-    private static Producto obtenerProducto(Trabajador trabajador, ProductosData productosData) {
+    private static Producto obtenerProducto() {
         Scanner s = new Scanner(System.in);
         System.out.print("Ingrese el código del producto que desea modificar: ");
         String codigoProducto = s.nextLine();
@@ -260,9 +252,9 @@ public class Menus {
     }
 
     // Modificar un producto
-    public static void modificarProducto(Trabajador trabajador, ProductosData productosData) {
+    public static void modificarProducto() {
         Scanner s = new Scanner(System.in);
-        Producto producto = obtenerProducto(trabajador, productosData);
+        Producto producto = obtenerProducto();
 
         if (producto == null) {
             System.out.println("Producto no encontrado.");
@@ -281,12 +273,22 @@ public class Menus {
         String nuevoNombre = s.nextLine();
 
         System.out.print("\nIngrese el nuevo precio del producto (deje en blanco para mantener el valor actual): ");
-        String precioStr = s.nextLine();
-        Double nuevoPrecio = precioStr.isEmpty() ? null : Double.parseDouble(precioStr);
+        double precioStr = 0d;
+        try {
+            precioStr = Double.valueOf(s.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Debe introducir un número.");
+        }
+        double nuevoPrecio = precioStr;
 
         System.out.print("\nIngrese el nuevo stock del producto (deje en blanco para mantener el valor actual): ");
-        String stockStr = s.nextLine();
-        Integer nuevoStock = stockStr.isEmpty() ? null : Integer.parseInt(stockStr);
+        int stockStr = 0;
+        try {
+            stockStr = Integer.parseInt(s.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Debe introducir un número.");
+        }
+        int nuevoStock = stockStr;
 
         producto.modificarProducto(nuevoNombre, nuevoPrecio, nuevoStock);
 
@@ -304,7 +306,12 @@ public class Menus {
         System.out.print("Ingrese la nueva contraseña (deje en blanco para mantener el valor actual): ");
         String nuevaClave = s.nextLine();
         System.out.print("Ingrese el numero de telefono (deje en blanco para mantener el valor actual): ");
-        int nuevoTelefono = Integer.parseInt(s.nextLine());
+        int nuevoTelefono = 0;
+        try {
+            nuevoTelefono = Integer.parseInt(s.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Debe introducir un número de 9 dígitos.");
+        }
 
         trabajador.modificarDatos(nuevoNombre, nuevaClave, nuevoTelefono);
 
@@ -312,7 +319,7 @@ public class Menus {
     }
 
     // Menú para el registro de un cliente
-    public static void menuRegistro(Tienda tienda) {
+    /*public static void menuRegistro(Tienda tienda) {
         Scanner s = new Scanner(System.in);
         System.out.println("==== Registro de un nuevo cliente ====");
 
@@ -340,7 +347,8 @@ public class Menus {
         String clave = s.nextLine();
 
         // Verificar si alguno de los datos está vacío
-        if (nombre.isEmpty() || apellido.isEmpty() || direccion.isEmpty() || ciudad.isEmpty() || provincia.isEmpty() || telefono.isEmpty() || email.isEmpty() || clave.isEmpty()) {
+        if (nombre.isEmpty() || apellido.isEmpty() || direccion.isEmpty() || ciudad.isEmpty() || provincia.isEmpty()
+                || telefono.isEmpty() || email.isEmpty() || clave.isEmpty()) {
             System.out.println("Error: No se ha añadido porque no hay datos.");
             return;
         }
@@ -352,8 +360,10 @@ public class Menus {
         }
 
         // Verificar si el cliente ya existe por el email o teléfono
-        if ((tienda.getCliente1() != null && (tienda.getCliente1().getEmail().equals(email) || tienda.getCliente1().getTelefono().equals(telefono))) ||
-                (tienda.getCliente2() != null && (tienda.getCliente2().getEmail().equals(email) || tienda.getCliente2().getTelefono().equals(telefono)))) {
+        if ((tienda.getCliente1() != null && (tienda.getCliente1().getEmail().equals(email)
+                || tienda.getCliente1().getTelefono().equals(telefono))) ||
+                (tienda.getCliente2() != null && (tienda.getCliente2().getEmail().equals(email)
+                        || tienda.getCliente2().getTelefono().equals(telefono)))) {
             System.out.println("Error: Ya existe un cliente con ese email o teléfono.");
             return;
         }
@@ -367,14 +377,12 @@ public class Menus {
         } else {
             System.out.println("Error: No se pudo registrar el cliente. La tienda ya tiene el máximo de clientes.");
         }
-    }
+    }*/
 
 
     // Menú para el administrador
     public static void menuAdmin(Tienda tienda) {
         Utils.limpiaPantalla();
-        var s = new Scanner(System.in);
-        String opAdmin;
         // Mostrar el menú del administrador
         System.out.printf("""
                 FERNANSHOP
@@ -403,7 +411,12 @@ public class Menus {
 
         // Pedir al administrador que seleccione un pedido
         System.out.print("Seleccione el número del pedido que desea asignar: ");
-        int seleccionPedido = s.nextInt();
+        int seleccionPedido = 0;
+        try {
+            seleccionPedido = Integer.parseInt(s.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Debe introducir un número.");
+        }
         s.nextLine(); // Consumir el salto de línea
         Pedido pedidoSeleccionado = null;
 
@@ -425,7 +438,8 @@ public class Menus {
         }
 
         if (pedidoSeleccionado.getTrabajador() != null) {
-            System.out.println("El pedido ya está asignado al trabajador: " + pedidoSeleccionado.getTrabajador().getNombre());
+            System.out.println("El pedido ya está asignado al trabajador: "
+                    + pedidoSeleccionado.getTrabajador().getNombre());
             return;
         }
 
@@ -434,7 +448,8 @@ public class Menus {
         Trabajador t2 = tienda.getTrabajador2();
         Trabajador t3 = tienda.getTrabajador3();
 
-        if ((t1 != null && t2 == null && t3 == null) || (t1 == null && t2 != null && t3 == null) || (t1 == null && t2 == null && t3 != null)) {
+        if ((t1 != null && t2 == null && t3 == null) || (t1 == null && t2 != null && t3 == null)
+                || (t1 == null && t2 == null && t3 != null)) {
             // Asignar automáticamente al único trabajador disponible
             boolean asignado = Pedido.asignarSiguientePedidoAutomaticamente(tienda);
             if (asignado) {
@@ -447,7 +462,8 @@ public class Menus {
             if (t1 != null && t2 != null && t3 != null) {
                 if (t1.contarPedidos() == t2.contarPedidos() && t2.contarPedidos() == t3.contarPedidos()) {
                     // Asignación manual
-                    System.out.println("Todos los trabajadores tienen el mismo número de pedidos. Seleccione manualmente el trabajador.");
+                    System.out.println("Todos los trabajadores tienen el mismo número de pedidos. Seleccione " +
+                            "manualmente el trabajador.");
                     asignarPedidoManualmente(tienda, pedidoSeleccionado);
                 } else {
                     // Intentar asignación automática
@@ -473,8 +489,14 @@ public class Menus {
 
         // Check available workers and prompt for selection
         if (t1 != null && t2 != null && t3 != null) {
-            System.out.printf("Seleccione el trabajador (1 para %s, 2 para %s, 3 para %s): ", t1.getNombre(), t2.getNombre(), t3.getNombre());
-            int seleccionTrabajador = s.nextInt();
+            System.out.printf("Seleccione el trabajador (1 para %s, 2 para %s, 3 para %s): ", t1.getNombre(),
+                    t2.getNombre(), t3.getNombre());
+            int seleccionTrabajador = 0;
+            try {
+                seleccionTrabajador = Integer.parseInt(s.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Debe introducir un número.");
+            }
 
             // Check if the selected worker can accept more orders
             if (seleccionTrabajador == 1 && t1.contarPedidos() < 2) {
@@ -504,9 +526,14 @@ public class Menus {
             } else {
                 System.out.println("El trabajador ha alcanzado su límite de pedidos o la selección es no válida.");
             }
-        } else if (t1 != null && t2 != null ) {
+        } else if (t1 != null && t2 != null) {
             System.out.printf("Seleccione el trabajador (1 para %s, 2 para %s): ", t1.getNombre(), t2.getNombre());
-            int seleccionTrabajador = s.nextInt();
+            int seleccionTrabajador = 0;
+            try {
+                seleccionTrabajador = Integer.parseInt(s.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Debe introducir un número.");
+            }
 
             // Check for selected worker
             if (seleccionTrabajador == 1 && t1.contarPedidos() < 2) {
@@ -530,7 +557,12 @@ public class Menus {
             }
         } else if (t1 != null) {
             System.out.printf("Seleccione el trabajador (1 para %s): ", t1.getNombre());
-            int seleccionTrabajador = s.nextInt();
+            int seleccionTrabajador = 0;
+            try {
+                seleccionTrabajador = Integer.parseInt(s.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Debe introducir un número.");
+            }
 
             if (seleccionTrabajador == 1 && t1.contarPedidos() < 2) {
                 boolean asignado = pedido.asignarManualmente(tienda, 1);
@@ -545,7 +577,12 @@ public class Menus {
             }
         } else if (t2 != null) {
             System.out.printf("Seleccione el trabajador (2 para %s): ", t2.getNombre());
-            int seleccionTrabajador = s.nextInt();
+            int seleccionTrabajador = 0;
+            try {
+                seleccionTrabajador = Integer.parseInt(s.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Debe introducir un número.");
+            }
 
             if (seleccionTrabajador == 2 && t2.contarPedidos() < 2) {
                 boolean asignado = pedido.asignarManualmente(tienda, 2);
@@ -560,7 +597,12 @@ public class Menus {
             }
         } else if (t3 != null) {
             System.out.printf("Seleccione el trabajador (3 para %s): ", t3.getNombre());
-            int seleccionTrabajador = s.nextInt();
+            int seleccionTrabajador = 0;
+            try {
+                seleccionTrabajador = Integer.parseInt(s.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Debe introducir un número.");
+            }
 
             if (seleccionTrabajador == 3 && t3.contarPedidos() < 2) {
                 boolean asignado = pedido.asignarManualmente(tienda, 3);

@@ -150,31 +150,6 @@ public class Cliente {
     }
 
     //Método para realizar un pedido
-    /*public boolean realizaPedido(String opProducto, int cantidad) {
-
-        if (pedido1 == null) {
-            pedido1 = new Pedido();
-            if (pedido1.getP1() == null) {
-                return pedido1.anadeProducto(opProducto, cantidad);
-            } else if (pedido1.getP1() != null && pedido1.getP2() == null) {
-                return pedido1.anadeProducto(opProducto, cantidad);
-            } else if (pedido1.getP1() != null && pedido1.getP2() != null && pedido1.getP3() == null) {
-                return pedido1.anadeProducto(opProducto, cantidad);
-            } else return false;
-        } else if (pedido1 != null && pedido2 == null) {
-            pedido2 = new Pedido();
-            if (pedido2.getP1() == null) {
-                return pedido2.anadeProducto(opProducto, cantidad);
-            } else if (pedido2.getP1() != null && pedido2.getP2() == null) {
-                return pedido2.anadeProducto(opProducto, cantidad);
-            } else if (pedido2.getP1() != null && pedido2.getP2() != null && pedido2.getP3() == null) {
-                return pedido2.anadeProducto(opProducto, cantidad);
-            } else return false;
-        }
-        return false;
-    }*/
-
-
     public boolean realizaPedido(Cliente tempCliente, String opProducto, int cantidad) {
         if (tempCliente.getPedido1() == null) {
             tempCliente.setPedido1(new Pedido());
@@ -268,16 +243,9 @@ public class Cliente {
         return false;
     }
 
-    public void modificaDireccion() {
-        var s = new Scanner(System.in);
-        System.out.print("Introduzca la nueva localidad: ");
-        String localidad = s.nextLine();
+    public void modificaDireccion(String localidad, String provincia, String direccion) {
         setLocalidad(localidad);
-        System.out.println("Introduzca la nueva provincia: ");
-        String provincia = s.nextLine();
         setProvincia(provincia);
-        System.out.println("Introduzca la dirección: ");
-        String direccion = s.nextLine();
         setDireccion(direccion);
     }
 
@@ -323,13 +291,6 @@ public class Cliente {
                 '}';
     }
 
-
-    /*public String pintaPedido(Cliente cliente) {
-        if (cliente.getPedido1() != null && cliente1.getPedido2() == null) {
-            return cliente.pintaPedido(cliente, cliente.getPedido1());
-        }
-        return "-1";
-    }*/
 
     public String pintaPedido(Cliente cliente) {
         if (pedido1 != null) {

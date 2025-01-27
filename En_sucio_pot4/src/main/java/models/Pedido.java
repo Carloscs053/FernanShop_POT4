@@ -202,7 +202,7 @@ public class Pedido {
 
     public boolean anadeProducto(String opProducto, int cantidad) {
         if (p3 != null) {
-            System.out.println("No se pueden agregar más productos al carrito");
+            return false;
         } else if (p1 == null) {
             switch (opProducto) {
                 case "1" -> {
@@ -423,7 +423,8 @@ public class Pedido {
         Trabajador t2 = tienda.getTrabajador2();
         Trabajador t3 = tienda.getTrabajador3();
 
-        if ((t1 != null && t2 != null && t3 == null) || (t1 == null && t2 != null && t3 != null) || (t1 != null && t2 == null && t3 != null)) {
+        if ((t1 != null && t2 != null && t3 == null) || (t1 == null && t2 != null && t3 != null) ||
+                (t1 != null && t2 == null && t3 != null)) {
             boolean asignado;
             do {
                 asignado = asignarSiguientePedidoAutomaticamente(tienda);
@@ -560,8 +561,10 @@ public class Pedido {
     // Metodo para asignar un pedido manualmente
     private static void asignarPedidoManualmente(Tienda tienda) {
         Scanner scanner = new Scanner(System.in);
+        //No se llega a usar, pero no debería estar aquí
         System.out.print("Seleccione el trabajador (1 para Carlos, 2 para Eduardo, 3 para JL): ");
-        int seleccionTrabajador = scanner.nextInt();
+        int seleccionTrabajador = Integer.parseInt(scanner.nextLine());
+
         Trabajador trabajadorSeleccionado = null;
 
         switch (seleccionTrabajador) {

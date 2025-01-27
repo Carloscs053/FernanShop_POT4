@@ -167,7 +167,7 @@ public class Tienda {
     }
 
     // Metodo para generar el catálogo de productos
-    public String verCatalogo(ProductosData productosData) {
+    public String verCatalogo() {
         String catalogo = "";
         catalogo += ((producto1 != null) ? producto1.pintaDatosProducto() : "") + "\n";
         catalogo += ((producto2 != null) ? producto2.pintaDatosProducto() : "") + "\n";

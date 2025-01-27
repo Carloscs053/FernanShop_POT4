@@ -10,7 +10,7 @@ public class Utils {
         s.nextLine();
     }
 
-    // Metodo para limpiar la pantalla imprimiendo varias líneas en blanco
+    // Método para limpiar la pantalla imprimiendo varias líneas en blanco
     public static void limpiaPantalla() {
         for (int i = 0; i < 50; i++) {
             System.out.println();
@@ -81,5 +81,16 @@ public class Utils {
         }
         String dominio = "@fernanshop.com";
         return correo.endsWith(dominio);
+    }
+
+    // Método auxiliar para verificar si una cadena contiene solo dígitos
+    public static boolean esDigito(String diaRetraso) {
+        for (int i = 0; i < diaRetraso.length(); i++) {
+            char c = diaRetraso.charAt(i);
+            if (!Character.isDigit(c)) {
+                return false;
+            }
+        }
+        return true;
     }
 }

@@ -36,6 +36,9 @@ public class MainFernanShop {
                     Seleccione una opción:\s""");
             op = S.nextLine();
 
+            if (!op.equals("1") && !op.equals("2")) System.out.println("Debe introducir un número.");
+            Utils.pulseParaContinuar();
+
             switch (op) {
                 case "1":
                     //Reiniciamos el logueado para que al volver a este punto no entre en el perfil anterior
@@ -118,14 +121,14 @@ public class MainFernanShop {
                                         break;
                                     case "3":
                                         // Consultar el catálogo de productos
-                                        String catalogo = tienda.verCatalogo(productosData);
+                                        String catalogo = tienda.verCatalogo();
                                         System.out.println(catalogo);
                                         Utils.pulseParaContinuar();
                                         Utils.limpiaPantalla();
                                         break;
                                     case "4":
                                         // Modificar un producto del catálogo
-                                        Menus.modificarProducto(tempTrabajador, productosData);
+                                        Menus.modificarProducto();
                                         Utils.pulseParaContinuar();
                                         Utils.limpiaPantalla();
                                         break;
@@ -187,7 +190,11 @@ public class MainFernanShop {
                                                 switch (opProducto) {
                                                     case "1", "2", "3", "4", "5":
                                                         System.out.print("Indique la cantidad deseada: ");
-                                                        cantidad = Integer.parseInt(S.nextLine());
+                                                        try {
+                                                            cantidad = Integer.parseInt(S.nextLine());
+                                                        } catch (NumberFormatException e) {
+                                                            System.out.println("Debe introducir un número");
+                                                        }
                                                         if (tempCliente.realizaPedido(tempCliente, opProducto, cantidad)) {
                                                             System.out.println("Producto añadido correctamente.");
                                                         } else
@@ -277,8 +284,16 @@ public class MainFernanShop {
 
                                                         break;
                                                     case "5":
-                                                        System.out.println("Indique la nueva dirección: ");
-                                                        tempCliente.modificaDireccion();
+                                                        System.out.print("Indique la nueva localidad: ");
+                                                        String localidad = S.nextLine();
+                                                        System.out.println();
+                                                        System.out.print("Indique la nueva provincia: ");
+                                                        String provincia = S.nextLine();
+                                                        System.out.println();
+                                                        System.out.print("Indique la nueva dirección: ");
+                                                        String direccion = S.nextLine();
+                                                        System.out.println();
+                                                        tempCliente.modificaDireccion(localidad, provincia, direccion);
                                                         System.out.println("Dirección modificada correctamente.");
                                                         break;
                                                     case "6":
@@ -318,6 +333,8 @@ public class MainFernanShop {
 
                     if (tienda.registrosLlenos()) System.out.println("No se puede dar de alta a más clientes.");
                     else {
+                        System.out.println("==== Registro de un nuevo cliente ====");
+                        System.out.println();
                         System.out.print("Introduzca su nombre: ");
                         nombre = S.nextLine();
                         System.out.print("Introduzca su apellido: ");
@@ -343,7 +360,7 @@ public class MainFernanShop {
                     Utils.pulseParaContinuar();
                     Utils.limpiaPantalla();
 
-                    //Menus.menuRegistro();
+                    //Menus.menuRegistro(tienda);
                     break;
                 default:
                     // Mostrar mensaje de error si la opción no es válida
