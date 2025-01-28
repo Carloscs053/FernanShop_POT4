@@ -10,8 +10,29 @@ import models.Producto;
 import models.Trabajador;
 import models.Tienda;
 
+import static view.MainFernanShop.S;
+
 public class Menus {
     Tienda tienda = new Tienda();
+
+    public static String menuPrincipal() {
+        System.out.println("""
+                    ███████╗███████╗██████╗ ███╗   ██╗ █████╗ ███╗   ██╗███████╗██╗  ██╗ ██████╗ ██████╗
+                    ██╔════╝██╔════╝██╔══██╗████╗  ██║██╔══██╗████╗  ██║██╔════╝██║  ██║██╔═══██╗██╔══██╗
+                    █████╗  █████╗  ██████╔╝██╔██╗ ██║███████║██╔██╗ ██║███████╗███████║██║   ██║██████╔╝
+                    ██╔══╝  ██╔══╝  ██╔══██╗██║╚██╗██║██╔══██║██║╚██╗██║╚════██║██╔══██║██║   ██║██╔═══╝
+                    ██║     ███████╗██║  ██║██║ ╚████║██║  ██║██║ ╚████║███████║██║  ██║╚██████╔╝██║
+                    ╚═╝     ╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═╝
+                                        
+                    """);
+
+        System.out.print("""
+                    1. Iniciar Sesión.
+                    2. Registrarse
+                    3. Verificar mi correo
+                    Seleccione una opción:\s""");
+        return S.nextLine();
+    }
 
     // Menú para el cliente
     public static void menuCliente(Cliente cliente) {

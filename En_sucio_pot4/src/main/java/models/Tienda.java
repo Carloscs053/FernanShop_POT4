@@ -37,6 +37,8 @@ public class Tienda {
         this.producto5 = null;
     }
 
+
+
     // Getters y Setters
     public Cliente getCliente1() {
         return cliente1;
@@ -122,6 +124,17 @@ public class Tienda {
     }
 
 
+    public boolean verificaTokenCliente(String email, int token) {
+        if (email.equals(cliente1.getEmail())) {
+            if (cliente1.verificaToken(token)) return true;
+        }
+        if (email.equals(cliente2.getEmail())) {
+            if (cliente2.verificaToken(token)) return true;
+        }
+        return false;
+    }
+
+
     public boolean altaCliente(Cliente cliente) {
         if (cliente1 == null) {
             this.cliente1 = cliente;
@@ -197,10 +210,9 @@ public class Tienda {
     }
 
 
-    //Metodo que comprueba si todos los slots de clientes están ocupados
+    //Método que comprueba si todos los slots de clientes están ocupados
     public boolean registrosLlenos() {
-        if (cliente1 != null && cliente2 != null) return true;
-        return false;
+        return cliente1 != null && cliente2 != null;
     }
 
 
@@ -262,6 +274,11 @@ public class Tienda {
     }
 
 
+    public boolean existeEmail(String email) {
+        if (cliente1 != null && cliente1.getEmail().equals(email)) return false;
+        return cliente2 == null || !cliente2.getEmail().equals(email);
+    }
+
 
     // toString
     @Override
@@ -275,5 +292,19 @@ public class Tienda {
                 ", pedido1=" + pedido1 +
                 ", pedido2=" + pedido2 +
                 '}';
+    }
+
+    public void enviaTokenCliente(String email) {
+
+    }
+
+    public boolean compruebaVerificado(String email) {
+        if (cliente1.getEmail().equals(email)) {
+            return cliente1.isVerificado();
+        }
+        if (cliente2.getEmail().equals(email)) {
+            return cliente2.isVerificado();
+        }
+        return false;
     }
 }

@@ -1,7 +1,5 @@
 package models;
 
-import java.util.Scanner;
-
 public class Cliente {
     private String nombre;
     private String apellido;
@@ -14,6 +12,8 @@ public class Cliente {
     private Pedido pedido1;
     private Pedido pedido2;
     private int cuentaPedido;
+    private int token;
+    private boolean verificado;
 
     //Constructor
     public Cliente(String nombre, String apellido, String direccion, String localidad, String provincia,
@@ -30,7 +30,10 @@ public class Cliente {
         pedido2 = null;
         //Posiblemente este contador no haga falta, se comprueban los pedidos y ya
         cuentaPedido = 0;
+        token = generaTokenAleatorio();
+        verificado = false;
     }
+
 
     //Constructor copia
     //Creo que esto no hace falta
@@ -48,6 +51,21 @@ public class Cliente {
     }*/
 
     //getter y setter
+    public int getToken() {
+        return token;
+    }
+
+    public void setToken(int token) {
+        this.token = token;
+    }
+
+    public boolean isVerificado() {
+        return verificado;
+    }
+
+    public void setVerificado(boolean verificado) {
+        this.verificado = verificado;
+    }
 
     public String getNombre() {
         return nombre;
@@ -139,6 +157,15 @@ public class Cliente {
     }
 
     //Otros métodos
+    private int generaTokenAleatorio() {
+        return (int) (Math.random() * 100000);
+    }
+
+    public boolean emailVerificado(Cliente tempCliente) {
+        return isVerificado();
+    }
+
+
     //Dice si el login es correcto o no
     public boolean loginCliente(String email, String clave) {
         return this.email.equals(email) && this.clave.equals(clave);
@@ -153,10 +180,10 @@ public class Cliente {
     public boolean realizaPedido(Cliente tempCliente, String opProducto, int cantidad) {
         if (tempCliente.getPedido1() == null) {
             tempCliente.setPedido1(new Pedido());
-        } else if (tempCliente.getPedido2() == null){
+        } else if (tempCliente.getPedido2() == null) {
             tempCliente.setPedido2(new Pedido());
         }
-        if (!tempCliente.pedido1.isRealizado()){
+        if (!tempCliente.pedido1.isRealizado()) {
             if (tempCliente.pedido1.getP1() == null) {
                 return tempCliente.pedido1.anadeProducto(opProducto, cantidad);
             }
@@ -230,6 +257,8 @@ public class Cliente {
     public boolean modificaEmail(String email) {
         if (validaEmail(email)) {
             setEmail(email);
+            setVerificado(false);
+            //envíaToken();
             return true;
         }
         return false;
@@ -258,6 +287,12 @@ public class Cliente {
         salida += "Email: " + email + "\n";
         salida += "Teléfono: " + telefono + "\n";
         salida += "Dirección: " + direccion + ", " + localidad + "(" + provincia + ")" + "\n";
+        salida += "Estado de la cuenta: ";
+        if (isVerificado()) { // Comprueba la verificación, y da feedback para que realice el proceso
+            salida += "Verificada\n";
+        } else {
+            salida += "Sin verificar, revise su correo electrónico\n";
+        }
         salida += "==========================\n";
         return salida;
     }
@@ -312,5 +347,13 @@ public class Cliente {
         salida += (pedido1 != null && pedido2 != null) ? "SEGUNDO PEDIDO:\n" : "";
         salida += (pedido1 != null && pedido2 != null) ? pedido2.pintaPedido(tempCliente) + "\n" : "";
         return salida;
+    }
+
+    public boolean verificaToken(int token) {
+        if (this.token == token) {
+            setVerificado(true);
+            return true;
+        }
+        return false;
     }
 }
