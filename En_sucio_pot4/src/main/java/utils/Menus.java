@@ -9,6 +9,7 @@ import models.Pedido;
 import models.Producto;
 import models.Trabajador;
 import models.Tienda;
+import comunicaciones.*;
 
 import static view.MainFernanShop.S;
 
@@ -106,6 +107,12 @@ public class Menus {
             return;
         }
 
+        Cliente cliente = pedido.getCliente();
+         if (cliente == null) {
+            System.out.println("Cliente no encontrado.");
+            return;
+        }
+
         boolean recibido = pedido.getEstado().equalsIgnoreCase("Recibido");
         boolean enPreparacion = pedido.getEstado().equalsIgnoreCase("En Preparación");
         boolean cancelado = pedido.getEstado().equalsIgnoreCase("Cancelado");
@@ -168,6 +175,8 @@ public class Menus {
 
             cambiarFechaEntrega(pedido);
             aniadirComentario(pedido);
+            // Envía un correo electrónico al cliente con la actualización del pedido
+            Email.emailPedidoModificado(cliente, pedido);
             break;
         }
     }
@@ -694,12 +703,15 @@ public class Menus {
 
         System.out.print("Ingrese el número de teléfono del nuevo trabajador: ");
         String numero = s.nextLine();
+
+        System.out.print("Ingrese el chat_id del nuevo trabajador: ");
+        String chat_id = s.nextLine();
         // Crear una nueva instancia de Trabajador
         if (nombre.isEmpty() || email.isEmpty() || clave.isEmpty() || numero.isEmpty()) {
             System.out.println("\nNo se se ha añadido faltan datos importantes");
         } else {
             int telefono = Integer.parseInt(numero);
-            Trabajador nuevoTrabajador = new Trabajador(nombre, email, clave, telefono);
+            Trabajador nuevoTrabajador = new Trabajador(nombre, email, clave, telefono, chat_id);
             // Verificar si hay algún trabajador disponible y añadir el nuevo trabajador
             System.out.println(admin.altaTrabajador(nuevoTrabajador) ?
                     "\nNuevo trabajador dado de alta exitosamente." :

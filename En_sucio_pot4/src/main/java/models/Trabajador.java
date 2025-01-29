@@ -10,15 +10,17 @@ public class Trabajador {
     private Pedido p1;
     private Pedido p2;
     private int contador = 0;
+    private String chat_id;
 
     //Constructor
-    public Trabajador(String nombre, String email, String clave, int telefono) {
+    public Trabajador(String nombre, String email, String clave, int telefono, String chat_id) {
         this.nombre = nombre;
         this.email = email;
         this.clave = clave;
         this.telefono = telefono;
         this.p1 = null;
         this.p2 = null;
+        this.chat_id = chat_id;
     }
 
     //Getters y Setters
@@ -77,6 +79,10 @@ public class Trabajador {
 
     public void setContador(int contador) {
         this.contador = contador;
+    }
+
+    public String getChat_id() {
+        return chat_id;
     }
 
     //Otros métodos

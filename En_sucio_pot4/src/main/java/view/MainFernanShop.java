@@ -8,6 +8,8 @@ import models.*;
 
 import java.util.Scanner;
 
+import comunicaciones.*;;
+
 public class MainFernanShop {
     final public static Scanner S = new Scanner(System.in);
 

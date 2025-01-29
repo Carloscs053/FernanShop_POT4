@@ -19,6 +19,7 @@ public class Pedido {
     private boolean realizado;
     private Trabajador trabajador;
     private Cliente cliente;
+    private LocalDate fechaEntrega;
 
     // Atributo Estático
     private static final int SHIPPING_DAYS = 5;
@@ -35,9 +36,8 @@ public class Pedido {
         this.diasRetraso = 0;
         this.realizado = false;
         this.codigo = generarCodigoAleatorio();
+        this.fechaEntrega = calculaFechaEnt();
     }
-
-
 
     // Getters y Setters
     public Producto getP1() {
@@ -145,7 +145,19 @@ public class Pedido {
         return p1 != null && p2 != null && p3 != null;
     }
 
+    public LocalDate getFechaEntrega() {
+        return fechaEntrega;
+    }
+
+    public void setFechaEntrega(LocalDate fechaEntrega) {
+        this.fechaEntrega = fechaEntrega;
+    }
+
     public LocalDate calculateDays() {
+        return fechaPedido.plusDays(SHIPPING_DAYS + diasRetraso);
+    }
+
+    public LocalDate calculaFechaEnt() {
         return fechaPedido.plusDays(SHIPPING_DAYS + diasRetraso);
     }
 
