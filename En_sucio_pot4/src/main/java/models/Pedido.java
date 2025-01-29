@@ -8,7 +8,6 @@ import java.util.Scanner;
 
 public class Pedido {
     // Atributos
-    private int id;
     private Producto p1;
     private Producto p2;
     private Producto p3;
@@ -27,7 +26,6 @@ public class Pedido {
 
     // Constructor por defecto
     public Pedido() {
-        this.id = generaIdAleatorio();
         this.p1 = null;
         this.p2 = null;
         this.p3 = null;
@@ -150,13 +148,6 @@ public class Pedido {
     public LocalDate calculateDays() {
         return fechaPedido.plusDays(SHIPPING_DAYS + diasRetraso);
     }
-
-
-    private int generaIdAleatorio() {
-        return (int) ((Math.random() * 100000) + 1);
-    }
-
-
 
     public void agregaProducto(Producto producto) {
         if (p1 == null) {
@@ -325,18 +316,7 @@ public class Pedido {
     }
 
     private String generarCodigoAleatorio() {
-        contadorCodigo++;
-        String inicialesCliente = cliente.getNombre().charAt(0) + cliente.getApellido().charAt(0) + "";
-        String localidad = cliente.getLocalidad().substring(0, Math.min(3, cliente.getLocalidad().length())).toUpperCase();
-        String telefono = String.valueOf(cliente.getTelefono());
-        String numerosTelefono = telefono.substring(Math.max(0, telefono.length() - 3));
-        String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        StringBuilder codigoAlfanumerico = new StringBuilder();
-        for (int i = 0; i < 7; i++) {
-            int indice = (int) (Math.random() * caracteres.length());
-            codigoAlfanumerico.append(caracteres.charAt(indice));
-        }
-        return inicialesCliente + localidad + numerosTelefono + codigoAlfanumerico;
+        return String.valueOf((int) ((Math.random() * 100000) + 1));
     }
 
     //Admin asigna un trabajador

@@ -182,6 +182,9 @@ public class Cliente {
             tempCliente.setPedido1(new Pedido());
         } else if (tempCliente.getPedido2() == null) {
             tempCliente.setPedido2(new Pedido());
+            do { // Bucle que reemplazará el pedido 2 siempre que su código coincida con el código del pedido 1
+                tempCliente.setPedido2(new Pedido());
+            } while (tempCliente.pedido2.getCodigo().equals(tempCliente.pedido1.getCodigo()));
         }
         if (!tempCliente.pedido1.isRealizado()) {
             if (tempCliente.pedido1.getP1() == null) {
