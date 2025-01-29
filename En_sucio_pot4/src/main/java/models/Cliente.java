@@ -305,13 +305,7 @@ public class Cliente {
     }
 
     //toString
-    /*@Override
-    public String toString() {
-        return "Cliente: " + nombre + "\nEmail: " + email + "\nDirección: " + direccion +
-                "\nTeléfono: " + telefono;
-    }*/
-
-    @Override
+        @Override
     public String toString() {
         return "Cliente{" +
                 "nombre='" + nombre + '\'' +

@@ -270,50 +270,23 @@ public class MainFernanShop {
     }
 
     private static String modificaDatosCliente(Cliente tempCliente, Tienda tienda) {
-        String opModifica, email;
+        String opModifica;
         opModifica = S.nextLine();
-        //TODO quizás sea más conveniente un método para cada campo
         switch (opModifica) {
             case "1":
-                System.out.print("Introduzca el nuevo nombre: ");
-                String nombre = S.nextLine();
-                tempCliente.modificaNombre(nombre);
-                System.out.println("Nombre modificado correctamente.");
+                cambiaNombre(tempCliente);
                 break;
             case "2":
-                System.out.print("Introduzca el nuevo apellido: ");
-                String apellido = S.nextLine();
-                tempCliente.modificaApellido(apellido);
-                System.out.println("Apellido modificado correctamente.");
+                cambiaApellido(tempCliente);
                 break;
             case "3":
-                System.out.println("Introduzca el nuevo email: ");
-                email = S.nextLine();
-                if (tempCliente.modificaEmail(email)) {
-                    enviaTokenCliente(email, tienda);
-                    System.out.println("Email modificado correctamente.");
-                } else System.out.println("Email no válido.");
+                cambiaEmail(tempCliente, tienda);
                 break;
             case "4":
-                System.out.println("Introduzca el nuevo número de teléfono: ");
-                String telefono = S.nextLine();
-                if (tempCliente.modificaTelefono(telefono)) {
-                    System.out.println("Teléfono modificado correctamente.");
-                } else System.out.println("Teléfono no permitido.");
-
+                cambiaTelefono(tempCliente);
                 break;
             case "5":
-                System.out.print("Indique la nueva localidad: ");
-                String localidad = S.nextLine();
-                System.out.println();
-                System.out.print("Indique la nueva provincia: ");
-                String provincia = S.nextLine();
-                System.out.println();
-                System.out.print("Indique la nueva dirección: ");
-                String direccion = S.nextLine();
-                System.out.println();
-                tempCliente.modificaDireccion(localidad, provincia, direccion);
-                System.out.println("Dirección modificada correctamente.");
+                cambiaDireccion(tempCliente);
                 break;
             case "6":
                 Utils.limpiaPantalla();
@@ -321,6 +294,52 @@ public class MainFernanShop {
             default:
         }
         return opModifica;
+    }
+
+    private static void cambiaDireccion(Cliente tempCliente) {
+        System.out.print("Indique la nueva localidad: ");
+        String localidad = S.nextLine();
+        System.out.println();
+        System.out.print("Indique la nueva provincia: ");
+        String provincia = S.nextLine();
+        System.out.println();
+        System.out.print("Indique la nueva dirección: ");
+        String direccion = S.nextLine();
+        System.out.println();
+        tempCliente.modificaDireccion(localidad, provincia, direccion);
+        System.out.println("Dirección modificada correctamente.");
+    }
+
+    private static void cambiaTelefono(Cliente tempCliente) {
+        System.out.println("Introduzca el nuevo número de teléfono: ");
+        String telefono = S.nextLine();
+        if (tempCliente.modificaTelefono(telefono)) {
+            System.out.println("Teléfono modificado correctamente.");
+        } else System.out.println("Teléfono no permitido.");
+    }
+
+    private static void cambiaEmail(Cliente tempCliente, Tienda tienda) {
+        String email;
+        System.out.println("Introduzca el nuevo email: ");
+        email = S.nextLine();
+        if (tempCliente.modificaEmail(email)) {
+            enviaTokenCliente(email, tienda);
+            System.out.println("Email modificado correctamente.");
+        } else System.out.println("Email no válido.");
+    }
+
+    private static void cambiaApellido(Cliente tempCliente) {
+        System.out.print("Introduzca el nuevo apellido: ");
+        String apellido = S.nextLine();
+        tempCliente.modificaApellido(apellido);
+        System.out.println("Apellido modificado correctamente.");
+    }
+
+    private static void cambiaNombre(Cliente tempCliente) {
+        System.out.print("Introduzca el nuevo nombre: ");
+        String nombre = S.nextLine();
+        tempCliente.modificaNombre(nombre);
+        System.out.println("Nombre modificado correctamente.");
     }
 
     private static void mostrarDatosCliente(Cliente tempCliente) {
