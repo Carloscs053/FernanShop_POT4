@@ -258,7 +258,6 @@ public class Cliente {
         if (validaEmail(email)) {
             setEmail(email);
             setVerificado(false);
-            //envíaToken();
             return true;
         }
         return false;

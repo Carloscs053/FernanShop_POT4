@@ -14,6 +14,7 @@ public class Tienda {
     private Trabajador trabajador3;
     private Pedido pedido1;
     private Pedido pedido2;
+    //No creo necesario tener los productos creados en el controlador, se manejan desde los pedidos
     private Producto producto1;
     private Producto producto2;
     private Producto producto3;
@@ -129,7 +130,7 @@ public class Tienda {
             if (cliente1.verificaToken(token)) return true;
         }
         if (email.equals(cliente2.getEmail())) {
-            if (cliente2.verificaToken(token)) return true;
+            return cliente2.verificaToken(token);
         }
         return false;
     }
@@ -294,9 +295,7 @@ public class Tienda {
                 '}';
     }
 
-    public void enviaTokenCliente(String email) {
 
-    }
 
     public boolean compruebaVerificado(String email) {
         if (cliente1.getEmail().equals(email)) {

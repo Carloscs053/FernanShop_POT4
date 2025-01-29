@@ -194,7 +194,7 @@ public class MainFernanShop {
                                                     //System.out.println(tempCliente.verCliente());
                                                     System.out.println();
                                                     Menus.modificaCliente();
-                                                    opModifica = modificaDatosCliente(tempCliente);
+                                                    opModifica = modificaDatosCliente(tempCliente, tienda);
 
                                                 } while (!opModifica.equals("6"));
 
@@ -249,13 +249,13 @@ public class MainFernanShop {
                 System.out.println("Email ya verificado.");
             } else {
                 System.out.println("Introduzca el código de verificación");
-                int token = 0;
+                int tokenTeclado = 0;
                 try {
-                    token = Integer.parseInt(S.nextLine());
+                    tokenTeclado = Integer.parseInt(S.nextLine());
                 } catch (NumberFormatException e) {
                     System.out.println("Debe introducir un número");
                 }
-                if (tienda.verificaTokenCliente(email, token)) {
+                if (tienda.verificaTokenCliente(email, tokenTeclado)) {
                     System.out.println("Cuenta verificada con éxito.");
                 } else {
                     System.out.println("Ha ocurrido un error al verificar la cuenta.");
@@ -267,7 +267,7 @@ public class MainFernanShop {
         }
     }
 
-    private static String modificaDatosCliente(Cliente tempCliente) {
+    private static String modificaDatosCliente(Cliente tempCliente, Tienda tienda) {
         String opModifica, email;
         opModifica = S.nextLine();
         //TODO quizás sea más conveniente un método para cada campo
@@ -288,6 +288,7 @@ public class MainFernanShop {
                 System.out.println("Introduzca el nuevo email: ");
                 email = S.nextLine();
                 if (tempCliente.modificaEmail(email)) {
+                    enviaTokenCliente(email, tienda);
                     System.out.println("Email modificado correctamente.");
                 } else System.out.println("Email no válido.");
                 break;
@@ -385,6 +386,29 @@ public class MainFernanShop {
 
     }
 
+    // Hay que enviarle el token que se haya generado al crear el usuario, desde el controlador se puede acceder, o
+    // podemos crear un método que lo consulte y se pasa por aquí
+    public static void enviaTokenCliente(String email, Tienda tienda) {
+        //Hay que insertar el html
+        String contenido = "";// Aquí va el contenido del mensaje, es decir, el resultado obtenido
+
+        if (email.equals(tienda.getCliente1().getEmail())) {
+            contenido = String.valueOf(tienda.getCliente1().getToken());
+        }
+        if (email.equals(tienda.getCliente2().getEmail())) {
+            contenido = String.valueOf(tienda.getCliente2().getToken());
+        }
+
+        //Correo que vayamos a usar de ejemplo
+        if (Comunicaciones.enviarMensaje(email, "Código de verificación - FernanShop",
+                contenido)) {
+            System.out.println("Código de verificación enviado a su correo. Por favor, revise su bandeja de entrada" +
+                    " y verifique su cuenta.");
+        } else {
+            System.out.println("Error al enviar el código de verificación.");
+        }
+    }
+
     private static void registraUsuario(Tienda tienda) {
         String nombre, apellido, direccion, localidad, provincia, telefono, clave, email;
 
@@ -414,7 +438,7 @@ public class MainFernanShop {
                 clave = S.nextLine();
                 if (tienda.registraCliente(nombre, apellido, direccion, localidad, provincia, email, telefono,
                         clave)) {
-                    tienda.enviaTokenCliente(email);
+                    enviaTokenCliente(email, tienda);
                     System.out.println("Cliente dado de alta correctamente");
                 } else System.out.println("Ha ocurrido un error. Inténtelo de nuevo");
             }

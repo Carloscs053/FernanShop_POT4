@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 public class Pedido {
     // Atributos
+    private int id;
     private Producto p1;
     private Producto p2;
     private Producto p3;
@@ -26,55 +27,19 @@ public class Pedido {
 
     // Constructor por defecto
     public Pedido() {
+        this.id = generaIdAleatorio();
         this.p1 = null;
         this.p2 = null;
         this.p3 = null;
-        //this.codigo = generarCodigoAleatorio();
         this.fechaPedido = LocalDate.now();
         this.comentario = "";
         this.estado = "Recibido";
         this.diasRetraso = 0;
         this.realizado = false;
-    }
-
-    // Constructor para un solo producto
-    public Pedido(Producto p1, String comentario, String estado, int diasRetraso, Cliente cliente) {
-        this.p1 = p1;
-        this.p2 = null;
-        this.p3 = null;
-        this.comentario = comentario != null ? comentario : "";
-        this.estado = estado != null ? estado : "Recibido";
-        this.diasRetraso = diasRetraso;
-        this.cliente = cliente;
-        this.fechaPedido = LocalDate.now();
         this.codigo = generarCodigoAleatorio();
     }
 
-    // Constructor para dos productos
-    public Pedido(Producto p1, Producto p2, String comentario, String estado, int diasRetraso, Cliente cliente) {
-        this.p1 = p1;
-        this.p2 = p2;
-        this.p3 = null;
-        this.comentario = comentario != null ? comentario : "";
-        this.estado = estado != null ? estado : "Recibido";
-        this.diasRetraso = diasRetraso;
-        this.cliente = cliente;
-        this.fechaPedido = LocalDate.now();
-        this.codigo = generarCodigoAleatorio();
-    }
 
-    // Constructor para tres productos
-    public Pedido(Producto p1, Producto p2, Producto p3, String comentario, String estado, int diasRetraso, Cliente cliente) {
-        this.p1 = p1;
-        this.p2 = p2;
-        this.p3 = p3;
-        this.comentario = comentario != null ? comentario : "";
-        this.estado = estado != null ? estado : "Recibido";
-        this.diasRetraso = diasRetraso;
-        this.cliente = cliente;
-        this.fechaPedido = LocalDate.now();
-        this.codigo = generarCodigoAleatorio();
-    }
 
     // Getters y Setters
     public Producto getP1() {
@@ -185,6 +150,13 @@ public class Pedido {
     public LocalDate calculateDays() {
         return fechaPedido.plusDays(SHIPPING_DAYS + diasRetraso);
     }
+
+
+    private int generaIdAleatorio() {
+        return (int) ((Math.random() * 100000) + 1);
+    }
+
+
 
     public void agregaProducto(Producto producto) {
         if (p1 == null) {
