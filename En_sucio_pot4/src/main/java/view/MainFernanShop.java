@@ -25,6 +25,9 @@ public class MainFernanShop {
             // Printea las opciones del inicio
             op = Menus.menuPrincipal();
 
+            System.out.println(tienda.getCliente1());
+            ;
+
             if (!op.equals("1") && !op.equals("2") && !op.equals("3")) {
                 System.out.println("Debe introducir un número.");
                 Utils.pulseParaContinuar();
@@ -250,7 +253,7 @@ public class MainFernanShop {
             if (tienda.compruebaVerificado(email)) {
                 System.out.println("Email ya verificado.");
             } else {
-                System.out.println("Introduzca el código de verificación");
+                System.out.print("Introduzca el código de verificación: ");
                 int tokenTeclado = 0;
                 try {
                     tokenTeclado = Integer.parseInt(S.nextLine());
@@ -263,7 +266,6 @@ public class MainFernanShop {
                     System.out.println("Ha ocurrido un error al verificar la cuenta.");
                 }
             }
-
         } else {
             System.out.println("El email introducido no existe.");
         }
@@ -474,11 +476,15 @@ public class MainFernanShop {
                 telefono = S.nextLine();
                 System.out.print("Introduzca su clave: ");
                 clave = S.nextLine();
-                if (tienda.registraCliente(nombre, apellido, direccion, localidad, provincia, email, telefono,
-                        clave)) {
-                    enviaTokenCliente(email, tienda);
-                    System.out.println("Cliente dado de alta correctamente");
-                } else System.out.println("Ha ocurrido un error. Inténtelo de nuevo");
+                try {
+                    if (tienda.registraCliente(nombre, apellido, direccion, localidad, provincia, email, telefono,
+                            clave)) {
+                        enviaTokenCliente(email, tienda);
+                        System.out.println("Cliente dado de alta correctamente.");
+                    } else System.out.println("Ha ocurrido un error. Inténtelo de nuevo.");
+                } catch (RuntimeException e) {
+                    System.out.println("Ha ocurrido un error, disculpe las molestias.");
+                }
             }
         }
     }

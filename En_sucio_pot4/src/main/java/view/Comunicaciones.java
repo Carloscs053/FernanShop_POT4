@@ -67,7 +67,7 @@ public class Comunicaciones {
 
         try {
             // Codificamos el mensaje para que se interprete correctamente en la URL
-            String mensajeCodificado = URLEncoder.encode(mensaje, StandardCharsets.UTF_8.toString());
+            String mensajeCodificado = URLEncoder.encode(mensaje, StandardCharsets.UTF_8);
             direccion = fijo + mensajeCodificado;
 
             URL url = new URL(direccion);

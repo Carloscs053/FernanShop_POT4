@@ -276,8 +276,8 @@ public class Tienda {
 
 
     public boolean existeEmail(String email) {
-        if (cliente1 != null && cliente1.getEmail().equals(email)) return false;
-        return cliente2 == null || !cliente2.getEmail().equals(email);
+        if (cliente1 != null && cliente1.getEmail().equals(email)) return true;
+        return cliente2 != null && cliente2.getEmail().equals(email);
     }
 
 

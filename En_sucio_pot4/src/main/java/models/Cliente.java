@@ -319,6 +319,7 @@ public class Cliente {
                 ", pedido1=" + pedido1 +
                 ", pedido2=" + pedido2 +
                 ", cuentaPedido=" + cuentaPedido +
+                ", token = " + token +
                 '}';
     }
 

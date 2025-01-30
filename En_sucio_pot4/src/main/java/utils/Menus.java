@@ -494,24 +494,42 @@ public class Menus {
                     // Asignación manual
                     System.out.println("Todos los trabajadores tienen el mismo número de pedidos. Seleccione " +
                             "manualmente el trabajador.");
-                    asignarPedidoManualmente(tienda, pedidoSeleccionado);
+                    try {
+                        Telegram.mensajePedidoAsignado(asignarPedidoManualmente(tienda, pedidoSeleccionado));
+                    } catch (NullPointerException e) {
+                        System.out.println("Ha ocurrido un error.");
+                        Utils.pulseParaContinuar();
+                        Utils.limpiaPantalla();
+                    }
                 } else {
                     // Intentar asignación automática
                     boolean asignado = pedidoSeleccionado.asignarAutomaticamente(tienda);
                     if (asignado) {
                         System.out.println("Pedido asignado automáticamente.");
                     } else {
-                        asignarPedidoManualmente(tienda, pedidoSeleccionado);
+                        try {
+                            Telegram.mensajePedidoAsignado(asignarPedidoManualmente(tienda, pedidoSeleccionado));
+                        } catch (NullPointerException e) {
+                            System.out.println("Ha ocurrido un error.");
+                            Utils.pulseParaContinuar();
+                            Utils.limpiaPantalla();
+                        }
                     }
                 }
             } else {
                 // Asignación manual
-                asignarPedidoManualmente(tienda, pedidoSeleccionado);
+                try {
+                    Telegram.mensajePedidoAsignado(asignarPedidoManualmente(tienda, pedidoSeleccionado));
+                } catch (NullPointerException e) {
+                    System.out.println("Ha ocurrido un error.");
+                    Utils.pulseParaContinuar();
+                    Utils.limpiaPantalla();
+                }
             }
         }
     }
 
-    public static void asignarPedidoManualmente(Tienda tienda, Pedido pedido) {
+    public static Trabajador asignarPedidoManualmente(Tienda tienda, Pedido pedido) {
         Scanner s = new Scanner(System.in);
         Trabajador t1 = tienda.getTrabajador1();
         Trabajador t2 = tienda.getTrabajador2();
@@ -534,6 +552,7 @@ public class Menus {
                 if (asignado) {
                     System.out.println("Pedido asignado correctamente al trabajador: " + t1.getNombre());
                     t1.setContador(t1.contarPedidos());
+                    return t1;
                 } else {
                     System.out.println("Selección no válida o el trabajador no puede aceptar más pedidos.");
                 }
@@ -542,6 +561,7 @@ public class Menus {
                 if (asignado) {
                     System.out.println("Pedido asignado correctamente al trabajador: " + t2.getNombre());
                     t2.setContador(t2.contarPedidos());
+                    return t2;
                 } else {
                     System.out.println("Selección no válida o el trabajador no puede aceptar más pedidos.");
                 }
@@ -550,6 +570,7 @@ public class Menus {
                 if (asignado) {
                     System.out.println("Pedido asignado correctamente al trabajador: " + t3.getNombre());
                     t3.setContador(t3.contarPedidos());
+                    return t3;
                 } else {
                     System.out.println("Selección no válida o el trabajador no puede aceptar más pedidos.");
                 }
@@ -571,6 +592,7 @@ public class Menus {
                 if (asignado) {
                     System.out.println("Pedido asignado correctamente al trabajador: " + t1.getNombre());
                     t1.setContador(t1.contarPedidos());
+                    return t1;
                 } else {
                     System.out.println("Selección no válida o el trabajador no puede aceptar más pedidos.");
                 }
@@ -579,6 +601,7 @@ public class Menus {
                 if (asignado) {
                     System.out.println("Pedido asignado correctamente al trabajador: " + t2.getNombre());
                     t2.setContador(t2.contarPedidos());
+                    return t2;
                 } else {
                     System.out.println("Selección no válida o el trabajador no puede aceptar más pedidos.");
                 }
@@ -599,6 +622,7 @@ public class Menus {
                 if (asignado) {
                     System.out.println("Pedido asignado correctamente al trabajador: " + t1.getNombre());
                     t1.setContador(t1.contarPedidos());
+                    return t1;
                 } else {
                     System.out.println("El trabajador no puede aceptar más pedidos.");
                 }
@@ -619,6 +643,7 @@ public class Menus {
                 if (asignado) {
                     System.out.println("Pedido asignado correctamente al trabajador: " + t2.getNombre());
                     t2.setContador(t2.contarPedidos());
+                    return t2;
                 } else {
                     System.out.println("El trabajador no puede aceptar más pedidos.");
                 }
@@ -639,6 +664,7 @@ public class Menus {
                 if (asignado) {
                     System.out.println("Pedido asignado correctamente al trabajador: " + t3.getNombre());
                     t3.setContador(t3.contarPedidos());
+                    return t3;
                 } else {
                     System.out.println("El trabajador no puede aceptar más pedidos.");
                 }
@@ -651,6 +677,7 @@ public class Menus {
 
         // Intentar asignar el siguiente pedido automáticamente
         boolean asignadoAutomaticamente = Pedido.asignarSiguientePedidoAutomaticamente(tienda);
+        return null;
     }
 
     private static void mostrarPedido(Tienda tienda, int numero) {
