@@ -88,11 +88,12 @@ Una vez dentro, dirigase a la pesataña de Windows (si es su caso) y descargue e
 # DESCARGA 💾
 Para la descarga, primero debe ir al repositorio del proyecto, les dejamos el siguiente enlace para llegar a él.
 
-https://github.com/Carloscs053/FernanShop.git
+https://github.com/Carloscs053/FernanShop_POT4.git
 
 Abrimos la pesataña que pone "<> Code" y descargamos el archivo ZIP
 
-![image](https://github.com/user-attachments/assets/47caf690-87de-4c23-b744-9c102fe3da51)
+![image](https://github.com/user-attachments/assets/2dc4088d-eea7-41e1-8ed9-10f949f08bfb)
+
 
 Vamos a la carpeta dónde se haya descargado la carpeta y con click derecho clicamos en "Extraer todo..."
 
@@ -100,11 +101,12 @@ Nos aparecerá una ventana como la siguiente:
 
 ![image](https://github.com/user-attachments/assets/10ca7b03-2cb4-4824-a3a6-22c842dcca85)
 
-Clicamos en "Examinar..." y le indicamos la ruta que deseemos
+Clicamos en "Extraer..." y le indicamos la ruta que deseemos
 
-A continuación, en la ruta "out/artifacts/FernanShop_jar" y clicamos en el archivo llamado "FernanShop" que aparece marcado en la captura
+A continuación, una vez descomprimida la carpeta, clicamos en "FernanShop_POT4" para ejecutar el programa.
 
-![image](https://github.com/user-attachments/assets/b7d02244-07e3-4b85-8586-d6a4b494d5f6)
+![image](https://github.com/user-attachments/assets/b7dc7b97-07fa-4cce-acc8-f7db381911c5)
+
 
 
 # MANUAL DE USUARIO 📖
@@ -226,19 +228,19 @@ A continuación, en la ruta "out/artifacts/FernanShop_jar" y clicamos en el arch
 - NUEVAS FEATURINGS
 
   A la hora de crear un nuevo pedido, el identificador que se le asigna a ese pedido es un número aleatorio entre el 1 y el 100.000. En caso de repetirse, generará un nuevo código.
-  (INSERTAR FOTO)
+  
 
   Ya sea al registrarse o al actualizar el correo electrónico, cada usuario deberá revisar su bandeja de entrada, a la cual habrá llegado un código de verificación, y deberá meterse en el apartado de verificación de la cuenta para así activarla y poder operar con ella. De esta forma nos aseguramos de que no ha habido ningún robo de cuenta.
-  (INTRODUCIR IMAGENES DEL MENÚ Y DEL CÓDIGO DE VERIFICACIÓN)
+  
 
   Se ha introducido el manejo de posibles errores tales como la introducción de un dato incorrecto para evitar el fallo en la ejecución del programa y asegurar el correcto funcionamiento de la aplicación.
-  (IMAGENES DE UN TRY - CATCH A NIVEL USUARIO)
+  
 
   En el código, para facilitar la lectura de próximos trabajadores, se ha separado las distintas partes del trabajo del front-end en funciones que faciliten la legibilidad del código.
-  (Meter foto del código?)
+ 
 
   Por último, hemos implementado el envío de correos y mensajes de telegam a los trabajador para avisar de las próximas tareas que debe realizar. De igual modo, cuando un pedido cambie de estado, le mandaremos los datos del pedido por correo al usuario.
-  (FOTOS DE LOS CAMBIOS DE ESTADO DEL CORREO)
+  
 
 
 
