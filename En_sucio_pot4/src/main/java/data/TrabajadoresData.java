@@ -3,9 +3,9 @@ package data;
 import models.Trabajador;
 
 public class TrabajadoresData {
-    public static Trabajador trabajador1 = new Trabajador("Carlos", "carlos@fernando3martos.com", "El3gancia", 543678329);
-    public static Trabajador trabajador2 = new Trabajador("Eduardo", "user", "1234", 923548346);
-    public static Trabajador trabajador3 = new Trabajador("JL", "jl@fernando3martos.com", "Huelga?", 943568235);
+    public static Trabajador trabajador1 = new Trabajador("Carlos", "carlos@fernando3martos.com", "El3gancia", 543678329, "1337619088");
+    public static Trabajador trabajador2 = new Trabajador("Eduardo", "user", "1234", 923548346, "1070902307");
+    public static Trabajador trabajador3 = new Trabajador("JL", "jl@fernando3martos.com", "Huelga?", 943568235, "");
 
     public static Trabajador getTrabajadorByEmail(String email) {
         if (trabajador1.getEmail().equals(email)) {

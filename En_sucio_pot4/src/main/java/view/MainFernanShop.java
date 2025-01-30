@@ -354,49 +354,20 @@ public class MainFernanShop {
         String opProducto;
         int cantidad = 0;
         do {
-            System.out.println(tienda.pintaCatalogo());
-            System.out.println("6. Terminar pedido");
-            System.out.println("7. Cancelar pedido");
-            System.out.println();
-            System.out.print("Indique el producto que desee (6 para confirmar el pedido y " +
-                    "7 para cancelarlo: ");
-            opProducto = S.nextLine();
+            opProducto = seleccionaProducto(tienda);
             switch (opProducto) {
                 case "1", "2", "3", "4", "5":
-                    System.out.print("Indique la cantidad deseada: ");
-                    try {
-                        cantidad = Integer.parseInt(S.nextLine());
-                    } catch (NumberFormatException e) {
-                        System.out.println("Debe introducir un número");
-                    }
-                    if (tempCliente.realizaPedido(tempCliente, opProducto, cantidad)) {
-                        System.out.println("Producto añadido correctamente.");
-                    } else
-                        System.out.println("No se ha podido añadir el producto.");
+                    cantidad = anadeProducto(tempCliente, cantidad, opProducto);
                     Utils.pulseParaContinuar();
                     break;
                 case "6":
-                    if (tempCliente.confirmaPedido()) {
-                        //tienda.totalPrecio(tempCliente);
-                        System.out.println("¡Pedido finalizado con éxito!");
-                        System.out.println();
-                        if (tempCliente.pintaPedido(tempCliente).equals("-1")) {
-                            System.out.println("Se ha producido un error.");
-                        } else {
-                            System.out.println(tempCliente.pintaPedido(tempCliente));
-                        }
-                        Utils.pulseParaContinuar();
-                        Utils.limpiaPantalla();
-                    } else {
-                        System.out.println("No puedes realizar un pedido sin productos.");
-                        Utils.pulseParaContinuar();
-                        Utils.limpiaPantalla();
-                    }
+                    confirmaPedido(tempCliente);
+                    Utils.pulseParaContinuar();
+                    Utils.limpiaPantalla();
 
                     break;
                 case "7":
-                    tempCliente.cancelaPedido();
-                    System.out.println("Pedido cancelado.");
+                    cancelaPedido(tempCliente);
                     Utils.pulseParaContinuar();
                     Utils.limpiaPantalla();
                     break;
@@ -405,6 +376,52 @@ public class MainFernanShop {
             }
         } while (!opProducto.equals("6") && !opProducto.equals("7"));
 
+    }
+
+    private static void cancelaPedido(Cliente tempCliente) {
+        tempCliente.cancelaPedido();
+        System.out.println("Pedido cancelado.");
+    }
+
+    private static void confirmaPedido(Cliente tempCliente) {
+        if (tempCliente.confirmaPedido()) {
+            //tienda.totalPrecio(tempCliente);
+            System.out.println("¡Pedido finalizado con éxito!");
+            System.out.println();
+            if (tempCliente.pintaPedido(tempCliente).equals("-1")) {
+                System.out.println("Se ha producido un error.");
+            } else {
+                System.out.println(tempCliente.pintaPedido(tempCliente));
+            }
+        } else {
+            System.out.println("No puedes realizar un pedido sin productos.");
+        }
+    }
+
+    private static int anadeProducto(Cliente tempCliente, int cantidad, String opProducto) {
+        System.out.print("Indique la cantidad deseada: ");
+        try {
+            cantidad = Integer.parseInt(S.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Debe introducir un número");
+        }
+        if (tempCliente.realizaPedido(tempCliente, opProducto, cantidad)) {
+            System.out.println("Producto añadido correctamente.");
+        } else
+            System.out.println("No se ha podido añadir el producto.");
+        return cantidad;
+    }
+
+    private static String seleccionaProducto(Tienda tienda) {
+        String opProducto;
+        System.out.println(tienda.pintaCatalogo());
+        System.out.println("6. Terminar pedido");
+        System.out.println("7. Cancelar pedido");
+        System.out.println();
+        System.out.print("Indique el producto que desee (6 para confirmar el pedido y " +
+                "7 para cancelarlo: ");
+        opProducto = S.nextLine();
+        return opProducto;
     }
 
     // Hay que enviarle el token que se haya generado al crear el usuario, desde el controlador se puede acceder, o
